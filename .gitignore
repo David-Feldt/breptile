@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+benchmark/corpus/
+benchmark/out/
+.pytest_cache/
+.DS_Store

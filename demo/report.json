@@ -1,0 +1,31 @@
+{
+  "input": "demo/featuretype.stl",
+  "output": "demo/featuretype.step",
+  "mode": "fit",
+  "tolerance": 0.0005756789469834727,
+  "triangles": 3476,
+  "watertight": true,
+  "segmentation": {
+    "plane": 35,
+    "cylinder": 17,
+    "sphere": 0,
+    "freeform": 5
+  },
+  "fit_residuals": {
+    "max_plane": 1.3877787807814457e-16,
+    "max_cylinder": 0.00023535890023199113
+  },
+  "regions": {
+    "plane": 35,
+    "cylinder": 17,
+    "sphere": 0,
+    "freeform_triangles": 396,
+    "fallback": 0
+  },
+  "valid_brep": true,
+  "faces": 249,
+  "deviation": {
+    "max": 0.0008136988981403669,
+    "mean": 8.27881434417126e-05
+  }
+}

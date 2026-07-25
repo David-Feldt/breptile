@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stl2step"
+version = "0.1.0"
+description = "Convert STL meshes to clean, editable STEP BREP models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "build123d>=0.8",
+    "trimesh>=4.0",
+    "numpy",
+    "scipy",
+    "manifold3d",
+    "rtree",
+    "networkx",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+stl2step = "stl2step.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["stl2step*"]

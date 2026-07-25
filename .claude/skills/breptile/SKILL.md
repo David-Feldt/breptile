@@ -1,19 +1,19 @@
 ---
-name: stl2step
-description: Convert an STL mesh to clean editable STEP using the stl2step pipeline, then inspect the report and manually rebuild regions the automatic fitter could not handle (hybrid mesh-to-BREP workflow).
+name: breptile
+description: Convert an STL mesh to clean editable STEP using the breptile pipeline, then inspect the report and manually rebuild regions the automatic fitter could not handle (hybrid mesh-to-BREP workflow).
 ---
 
-# stl2step hybrid conversion
+# breptile hybrid conversion
 
-Convert STL → STEP with the `stl2step` CLI, then act as the second stage: fix what the
+Convert STL → STEP with the `breptile` CLI, then act as the second stage: fix what the
 algorithm couldn't. In this repo, run everything with `.venv/bin/python` /
-`.venv/bin/stl2step`. Elsewhere, `pip install stl2step` and use `stl2step` / `python`
+`.venv/bin/breptile`. Elsewhere, `pip install breptile` and use `breptile` / `python`
 directly.
 
 ## Step 1 — automatic pass
 
 ```bash
-.venv/bin/stl2step input.stl output.step --report report.json --verify
+.venv/bin/breptile input.stl output.step --report report.json --verify
 ```
 
 Read `report.json`:
@@ -30,7 +30,7 @@ If `freeform_triangles == 0`, `fallback == 0`, and the deviation is acceptable: 
 Common causes and knobs:
 - **Coarse tessellation** (facet angles > 30°): re-run with a looser smooth angle — call the
   Python API: `convert(inp, out, mode="fit", tol=...)`, or pre-inspect with
-  `stl2step.segment.segment(mesh, tol, smooth_angle=np.radians(45))`.
+  `breptile.segment.segment(mesh, tol, smooth_angle=np.radians(45))`.
 - **Tolerance too tight for a noisy mesh**: raise `--tol` (fits are rejected when max
   deviation of region vertices exceeds it).
 - **Partial cylinders / fillets / spheres**: v1 only rebuilds full-wrap cylinders with two
@@ -40,8 +40,8 @@ To see what a region looks like, render it:
 
 ```python
 import trimesh, numpy as np
-from stl2step.mesh import load_mesh
-from stl2step.segment import segment
+from breptile.mesh import load_mesh
+from breptile.segment import segment
 mesh = load_mesh("input.stl")
 regions = segment(mesh, tol)
 bad = [r for r in regions if r.kind == "freeform"]
@@ -69,11 +69,11 @@ the bad region's bounding volume, and fuse a cleanly modeled replacement.
 Always finish by measuring the result against the original mesh:
 
 ```python
-from stl2step.verify import deviation
-from stl2step.mesh import load_mesh
+from breptile.verify import deviation
+from breptile.mesh import load_mesh
 print(deviation("output.step", load_mesh("input.stl")))
 ```
 
 `max` must be ≤ the agreed tolerance (or the input's chord error). Also confirm
-`valid_brep` via `stl2step.brep.is_valid` and, for editability, that expected features are
+`valid_brep` via `breptile.brep.is_valid` and, for editability, that expected features are
 analytic (see `tests/test_convert.py::_cyl_face_count` for the pattern).

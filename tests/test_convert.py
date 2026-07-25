@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from stl2step.mesh import MeshError, load_mesh
-from stl2step.pipeline import convert
+from breptile.mesh import MeshError, load_mesh
+from breptile.pipeline import convert
 
 
 def _cyl_face_count(step_path):
@@ -49,7 +49,7 @@ def test_plate_hole_fit(fixtures, tmp_path):
 
 
 def test_plate_hole_deviation(fixtures, tmp_path):
-    from stl2step.verify import deviation
+    from breptile.verify import deviation
 
     out = str(tmp_path / "plate_dev.step")
     convert(fixtures["plate_hole"], out, mode="fit")

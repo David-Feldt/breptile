@@ -1,4 +1,4 @@
-"""stl2step command-line interface."""
+"""breptile command-line interface."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import argparse
 import json
 import sys
 
-from stl2step.mesh import MeshError
-from stl2step.pipeline import convert
+from breptile.mesh import MeshError
+from breptile.pipeline import convert
 
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
-        prog="stl2step",
+        prog="breptile",
         description="Convert an STL mesh to a clean, editable STEP BREP model.",
     )
     p.add_argument("input", help="input mesh file (STL/OBJ/3MF/PLY)")
@@ -51,8 +51,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     if args.verify:
-        from stl2step.mesh import load_mesh
-        from stl2step.verify import deviation
+        from breptile.mesh import load_mesh
+        from breptile.verify import deviation
 
         try:
             mesh = load_mesh(args.input, force=True)

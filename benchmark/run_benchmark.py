@@ -1,4 +1,4 @@
-"""Benchmark stl2step across a corpus of models. Each conversion runs in a
+"""Benchmark breptile across a corpus of models. Each conversion runs in a
 subprocess with a timeout so one pathological mesh can't hang the sweep."""
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ def run_one(name: str) -> dict:
     row: dict = {"model": name, "stl_kb": round(os.path.getsize(stl) / 1024)}
 
     def attempt(extra_args):
-        cmd = [sys.executable, "-m", "stl2step.cli", stl, step,
+        cmd = [sys.executable, "-m", "breptile.cli", stl, step,
                "--report", report, "--verify", *extra_args]
         t0 = time.time()
         p = subprocess.run(cmd, capture_output=True, text=True, timeout=TIMEOUT)

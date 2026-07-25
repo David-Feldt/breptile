@@ -1,4 +1,4 @@
-# stl2step
+# breptile
 
 Convert STL triangle meshes into clean, **editable** STEP BREP models — not just a
 tessellated dump. Planar regions become single planar faces; cylindrical holes and bosses
@@ -15,7 +15,7 @@ and 17 true cylinders. Every hole selects as a single cylindrical face in CAD.*
 
 STL files carry no topology and no analytic surfaces, so most "STL to STEP" converters
 emit one planar face per triangle — a file that opens in CAD but is unusable for editing,
-CAM, or feature recognition. `stl2step` reconstructs analytic surfaces instead, with a
+CAM, or feature recognition. `breptile` reconstructs analytic surfaces instead, with a
 hard guarantee: **every fitted surface passes through the mesh vertices within a
 configurable tolerance, and dimensions are never snapped.**
 
@@ -23,7 +23,7 @@ configurable tolerance, and dimensions are never snapped.**
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install stl2step        # or: pip install -e . from a checkout
+.venv/bin/pip install breptile        # or: pip install -e . from a checkout
 ```
 
 Requires Python 3.10–3.13 (needs OCP/build123d wheels). Dependencies: build123d,
@@ -32,10 +32,10 @@ trimesh, numpy, scipy, manifold3d, rtree, networkx.
 ## Use
 
 ```bash
-stl2step input.stl output.step                      # auto: fit primitives, per-region fallback
-stl2step input.stl output.step --mode tessellated   # guaranteed success, faceted STEP
-stl2step input.stl output.step --mode prismatic     # planes only
-stl2step input.stl output.step --tol 0.01 --report report.json --verify
+breptile input.stl output.step                      # auto: fit primitives, per-region fallback
+breptile input.stl output.step --mode tessellated   # guaranteed success, faceted STEP
+breptile input.stl output.step --mode prismatic     # planes only
+breptile input.stl output.step --tol 0.01 --report report.json --verify
 ```
 
 | Flag | Meaning |
@@ -49,7 +49,7 @@ stl2step input.stl output.step --tol 0.01 --report report.json --verify
 Or from Python:
 
 ```python
-from stl2step import convert
+from breptile import convert
 report = convert("input.stl", "output.step", mode="fit", tol=0.01)
 ```
 
@@ -96,7 +96,7 @@ coarse meshes the analytic surface is *more* accurate than the STL that describe
 
 ## Hybrid LLM workflow
 
-`.claude/skills/stl2step/SKILL.md` teaches Claude (or any agent) to run the pipeline,
+`.claude/skills/breptile/SKILL.md` teaches Claude (or any agent) to run the pipeline,
 read the report, and rebuild the regions the fitter couldn't handle as build123d code —
 then verify the result against the original mesh. Regions carry their fitted parameters
 (axis/center/radius) even when rejected, giving the agent measured starting points.

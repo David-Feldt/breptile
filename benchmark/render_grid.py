@@ -10,7 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
 
-from stl2step.verify import step_to_mesh
+from breptile.verify import step_to_mesh
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 

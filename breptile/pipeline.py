@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import numpy as np
 
-from stl2step import brep
-from stl2step.mesh import load_mesh
-from stl2step.segment import Region, boundary_loops, segment
+from breptile import brep
+from breptile.mesh import load_mesh
+from breptile.segment import Region, boundary_loops, segment
 
 
 def _default_tol(mesh) -> float:
@@ -320,7 +320,7 @@ def convert(
     max_triangles: int | None = None,
 ) -> dict:
     """Run the pipeline. Returns a report dict."""
-    from stl2step.export import write_step
+    from breptile.export import write_step
 
     mesh = load_mesh(input_path, force=force, max_triangles=max_triangles)
     tol = tol if tol is not None else _default_tol(mesh)

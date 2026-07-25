@@ -9,6 +9,18 @@ description = "Convert STL meshes to clean, editable STEP BREP models"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
+authors = [{ name = "David Feldt" }]
+keywords = ["stl", "step", "cad", "brep", "mesh", "opencascade", "reverse-engineering"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Manufacturing",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+]
+
 dependencies = [
     "build123d>=0.8",
     "trimesh>=4.0",
@@ -18,6 +30,10 @@ dependencies = [
     "rtree",
     "networkx",
 ]
+
+[project.urls]
+Homepage = "https://github.com/David-Feldt/stl2step"
+Issues = "https://github.com/David-Feldt/stl2step/issues"
 
 [project.optional-dependencies]
 dev = ["pytest"]

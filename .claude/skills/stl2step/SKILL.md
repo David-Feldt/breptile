@@ -6,8 +6,9 @@ description: Convert an STL mesh to clean editable STEP using the stl2step pipel
 # stl2step hybrid conversion
 
 Convert STL → STEP with the `stl2step` CLI, then act as the second stage: fix what the
-algorithm couldn't. Run everything with `.venv/bin/python` / `.venv/bin/stl2step` from the
-repo root.
+algorithm couldn't. In this repo, run everything with `.venv/bin/python` /
+`.venv/bin/stl2step`. Elsewhere, `pip install stl2step` and use `stl2step` / `python`
+directly.
 
 ## Step 1 — automatic pass
 
